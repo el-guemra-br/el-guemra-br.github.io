@@ -2,6 +2,14 @@
    CUSTOM SCROLLBAR - Cyberpunk Theme
    ============================================ */
    
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+}
+   
 /* Firefox */
 * {
     scrollbar-width: thin;
