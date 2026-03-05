@@ -32,8 +32,8 @@ window.addEventListener("load", () => {
             intro.style.display = "none";
             site.style.display = "block";
             initScrollAnimations(); 
-        }, 1200);
-    }, 4500);
+        }, 1000);
+    }, 3000);
 });
 
 
