@@ -15,7 +15,7 @@ You can view the live website here: [Live Demo](https://el-guemra-br.github.io)
 
 ---
 
-## 🚀 Deploy on GitHub Pages
+## Deploy on GitHub Pages
 
 1. **Rename your repository** to `el-guemra-br.github.io` (go to Settings → General → Repository name)
 2. **Go to Settings → Pages**
