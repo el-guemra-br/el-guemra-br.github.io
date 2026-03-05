@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Brahim Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(180deg, #0a050a, #12060c);
+            color: #eaeaea;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Scanline overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .error-code {
+            font-size: 180px;
+            font-weight: bold;
+            color: #ff4d6d;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+            text-shadow: 
+                0 0 20px rgba(255, 77, 109, 0.8),
+                0 0 40px rgba(255, 77, 109, 0.6),
+                0 0 60px rgba(255, 77, 109, 0.4);
+        }
+
+        /* Glitch effect layers */
+        .error-code::before,
+        .error-code::after {
+            content: "404";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0a050a, #12060c);
+        }
+
+        .error-code::before {
+            left: 2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+
+        .error-code::after {
+            left: -2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 9999px, 10px, 0); }
+            20% { clip: rect(60px, 9999px, 80px, 0); }
+            40% { clip: rect(30px, 9999px, 10px, 0); }
+            60% { clip: rect(80px, 9999px, 100px, 0); }
+            80% { clip: rect(10px, 9999px, 40px, 0); }
+            100% { clip: rect(50px, 9999px, 30px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(80px, 9999px, 100px, 0); }
+            20% { clip: rect(10px, 9999px, 40px, 0); }
+            40% { clip: rect(60px, 9999px, 20px, 0); }
+            60% { clip: rect(30px, 9999px, 60px, 0); }
+            80% { clip: rect(90px, 9999px, 10px, 0); }
+            100% { clip: rect(20px, 9999px, 70px, 0); }
+        }
+
+        .error-message {
+            font-size: 28px;
+            color: #ff9db3;
+            margin: 20px 0;
+            position: relative;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
+
+        .error-desc {
+            font-size: 16px;
+            color: #b8b8b8;
+            margin-bottom: 40px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #ff4d6d, #7a0c2e);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 80, 120, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 80, 120, 0.6);
+        }
+
+        .home-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            animation: float-particle 4s infinite;
+            opacity: 0.6;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 80%; top: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(5) { left: 90%; top: 50%; animation-delay: 1.5s; }
+        .particle:nth-child(6) { left: 30%; top: 40%; animation-delay: 2.5s; }
+
+        @keyframes float-particle {
+            0%, 100% { 
+                transform: translateY(0) scale(1); 
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-30px) scale(1.5); 
+                opacity: 0.3;
+            }
+        }
+
+        /* Terminal text effect */
+        .terminal {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            margin: 20px auto;
+            max-width: 400px;
+            font-size: 14px;
+            color: #00ffff;
+        }
+
+        .terminal .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00ffff;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Page Not Found</div>
+        
+        <div class="terminal">
+            <span id="typewriter"></span><span class="cursor"></span>
+        </div>
+        
+        <p class="error-desc">Oops! The page you're looking for doesn't exist or has been moved.</p>
+        <a href="index.html" class="home-btn">← Back to Home</a>
+    </div>
+
+    <script>
+        // Typewriter effect
+        const text = "> ERROR: Page not found in database...";
+        const typewriter = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typewriter.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        // Start typewriter after a short delay
+        setTimeout(typeWriter, 500);
+
+        // Random glitch burst on hover
+        const errorCode = document.querySelector('.error-code');
+        
+        errorCode.addEventListener('mouseenter', () => {
+            errorCode.style.animation = 'none';
+            setTimeout(() => {
+                errorCode.style.animation = 'glitch-anim-1 0.3s infinite, glitch-anim-2 0.3s infinite';
+            }, 10);
+        });
+
+        errorCode.addEventListener('mouseleave', () => {
+            errorCode.style.animation = '';
+        });
+    </script>
+</body>
+</html>

@@ -11,7 +11,19 @@ A modern and elegant personal portfolio website built to present my projects, sk
 
 ## Live Demo 
 
-You can view the live website here: [Live Demo](https://portfolio.github.io)
+You can view the live website here: [Live Demo](https://el-guemra-br.github.io)
+
+---
+
+## 🚀 Deploy on GitHub Pages
+
+1. **Rename your repository** to `el-guemra-br.github.io` (go to Settings → General → Repository name)
+2. **Go to Settings → Pages**
+3. **Source:** Select "Deploy from a branch"
+4. **Branch:** Select "main" (or "master") and folder "/" (root)
+5. **Click Save** and wait 1-2 minutes for deployment
+
+Your site will be live at: `https://el-guemra-br.github.io`
 
 ---
 
