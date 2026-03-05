@@ -1,3 +1,39 @@
+/* ============================================
+   CUSTOM SCROLLBAR - Cyberpunk Theme
+   ============================================ */
+   
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff4d6d #1a0a10;
+}
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a0a10;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff4d6d, #7a0c2e);
+    border-radius: 10px;
+    border: 2px solid #1a0a10;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff6b8a, #9e1a3d);
+    box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+}
+
+/* Selection color */
+::selection {
+    background: rgba(255, 77, 109, 0.4);
+    color: #fff;
+}
+
 * {
     margin: 0;
     padding: 0;
