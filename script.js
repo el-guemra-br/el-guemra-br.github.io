@@ -257,3 +257,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// ===============================
+// MOBILE MENU TOGGLE
+// ===============================
+const menuToggle = document.getElementById("menu-toggle");
+const divList = document.getElementById("div-list");
+const menuOverlay = document.getElementById("menu-overlay");
+
+if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        divList.classList.toggle("active");
+        menuOverlay.classList.toggle("active");
+    });
+}
+
+if (menuOverlay) {
+    menuOverlay.addEventListener("click", () => {
+        menuToggle.classList.remove("active");
+        divList.classList.remove("active");
+        menuOverlay.classList.remove("active");
+    });
+}
+
+// Close menu when clicking a nav link
+const navLinks = document.querySelectorAll(".ul-list li a");
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        menuToggle.classList.remove("active");
+        divList.classList.remove("active");
+        menuOverlay.classList.remove("active");
+    });
+});
+
