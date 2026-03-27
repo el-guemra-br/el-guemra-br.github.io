@@ -1,0 +1,59 @@
+IBRAHIM EL-GUEMRA 
+
+Full-Stack Developer | WordPress Certified
+Morocco, Taroudant
+Email: brahimgamra11@gmail.com
+Phone: +212 0710169569
+GitHub: https://github.com/el-guemra-br
+Portfolio: https://el-guemra-br.github.io
+Active Project: https://gamrawoodcraft.github.io
+
+PROFESSIONAL SUMMARY
+Developer with 2-3 years of hands-on experience building modern web solutions.
+Skilled in frontend, backend fundamentals, and WordPress development.
+Currently a Chemistry student while actively building and deploying real projects.
+
+TECHNICAL SKILLS
+- Frontend: HTML, CSS, JavaScript
+- Backend: Python, PHP
+- CMS: WordPress (Certified)
+- App/Tools: Flutter, Dart, Docker
+- Additional: Go, C++, Ruby, Java
+- Design: Figma, Canva
+
+OPERATING SYSTEMS
+- Windows
+- Ubuntu, Kali Linux, Debian, Fedora, Linux Mint
+
+EXPERIENCE HIGHLIGHTS
+- Built portfolio and business-focused websites with responsive layouts.
+- Developed real workshop website: Gamra Woodcraft.
+- Created interactive interfaces with clean, maintainable code.
+- Applied security-aware practices while learning OSINT and ethical hacking fundamentals.
+
+PROJECTS
+1) Gamra Woodcraft Workshop
+   Live: https://gamrawoodcraft.github.io
+   Role: Design and development of online workshop presence.
+
+2) Personal Portfolio Website
+   Live: https://el-guemra-br.github.io
+   GitHub: https://github.com/el-guemra-br/el-guemra-br.github.io
+
+EDUCATION
+- University Student in Chemistry (ongoing)
+
+SOCIAL LINKS
+- GitHub: https://github.com/el-guemra-br
+- Dev.to: https://dev.to/el-guemra-br
+- X/Twitter: https://twitter.com/el_guemra_br
+- Instagram: https://instagram.com/el_guemra_br
+
+LANGUAGES
+- Tamazight
+- Arabic
+- French
+- English
+- (Currently learning Germany)
+
+Last updated: March 2026

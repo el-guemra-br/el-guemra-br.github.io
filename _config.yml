@@ -1,0 +1,17 @@
+title: Brahim Portfolio
+description: A modern and elegant personal portfolio website
+show_downloads: false
+google_analytics: 
+
+theme: jekyll-theme-minimal
+
+# GitHub Pages configuration
+plugins:
+  - jekyll-relative-links
+
+# Build settings
+markdown: kramdown
+future: true
+show_drafts: false
+limit_posts: 5
+highlighter: rouge

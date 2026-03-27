@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Brahim Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 50% 15%, rgba(123,127,133,0.35), transparent 60%),
+                radial-gradient(circle at 50% 85%, rgba(43,46,51,0.85), transparent 60%),
+                linear-gradient(180deg, #2B2E33, #1a1c20);
+            color: #F5F6F7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(123, 127, 133, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(123, 127, 133, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glass card */
+        .error-container {
+            text-align: center;
+            padding: 60px 80px;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 26px;
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(123, 127, 133, 0.25);
+            box-shadow: 0 0 90px rgba(123,127,133,0.15);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main 404 with Orbitron font - Enhanced */
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 180px;
+            font-weight: 900;
+            color: #7B7F85;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+            text-shadow: 
+                0 0 30px rgba(123, 127, 133, 0.8),
+                0 0 60px rgba(123, 127, 133, 0.5),
+                0 0 100px rgba(123, 127, 133, 0.3);
+            animation: glowPulse 3s ease-in-out infinite;
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 30px rgba(123, 127, 133, 0.8),
+                    0 0 60px rgba(123, 127, 133, 0.5),
+                    0 0 100px rgba(123, 127, 133, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 50px rgba(123, 127, 133, 1),
+                    0 0 100px rgba(123, 127, 133, 0.7),
+                    0 0 150px rgba(123, 127, 133, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        /* Glitch effect layers */
+        .error-code::before,
+        .error-code::after {
+            content: "404";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        .error-code::before {
+            left: 3px;
+            text-shadow: -3px 0 #C1C4C8;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch1 3s infinite linear alternate-reverse;
+        }
+
+        .error-code::after {
+            left: -3px;
+            text-shadow: -3px 0 #9499a0;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch2 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch1 {
+            0% { clip: rect(20px, 9999px, 10px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            40% { clip: rect(30px, 9999px, 50px, 0); }
+            60% { clip: rect(90px, 9999px, 120px, 0); }
+            80% { clip: rect(10px, 9999px, 40px, 0); }
+            100% { clip: rect(50px, 9999px, 80px, 0); }
+        }
+
+        @keyframes glitch2 {
+            0% { clip: rect(60px, 9999px, 90px, 0); }
+            20% { clip: rect(20px, 9999px, 50px, 0); }
+            40% { clip: rect(80px, 9999px, 110px, 0); }
+            60% { clip: rect(10px, 9999px, 40px, 0); }
+            80% { clip: rect(100px, 9999px, 130px, 0); }
+            100% { clip: rect(30px, 9999px, 60px, 0); }
+        }
+
+        /* Hover glitch burst */
+        .error-code:hover {
+            animation: none;
+        }
+        .error-code:hover::before {
+            animation: glitch1 0.2s infinite;
+        }
+        .error-code:hover::after {
+            animation: glitch2 0.2s infinite;
+        }
+
+        /* Glowing line under 404 */
+        .error-code-line {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7B7F85, transparent);
+            margin: 20px auto;
+            animation: expandLine 1s ease-out 0.5s forwards;
+            opacity: 0;
+            border-radius: 2px;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 150px; opacity: 1; }
+        }
+
+        /* Message */
+        .error-message {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: #C1C4C8;
+            margin: 25px 0 15px;
+            letter-spacing: 4px;
+            animation: fadeIn 1s ease-out 0.3s forwards, textFlicker 4s infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes textFlicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
+
+        /* Sound wave visualizer */
+        .sound-wave {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 35px;
+            margin: 20px auto;
+        }
+
+        .sound-wave .bar {
+            width: 5px;
+            background: linear-gradient(to top, #7B7F85, #C1C4C8);
+            border-radius: 3px;
+            animation: soundWave 1s ease-in-out infinite;
+        }
+
+        .sound-wave .bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+        .sound-wave .bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+        .sound-wave .bar:nth-child(3) { height: 30px; animation-delay: 0.2s; }
+        .sound-wave .bar:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+        .sound-wave .bar:nth-child(5) { height: 25px; animation-delay: 0.4s; }
+        .sound-wave .bar:nth-child(6) { height: 35px; animation-delay: 0.5s; }
+        .sound-wave .bar:nth-child(7) { height: 22px; animation-delay: 0.6s; }
+        .sound-wave .bar:nth-child(8) { height: 28px; animation-delay: 0.7s; }
+        .sound-wave .bar:nth-child(9) { height: 15px; animation-delay: 0.8s; }
+        .sound-wave .bar:nth-child(10) { height: 20px; animation-delay: 0.9s; }
+
+        @keyframes soundWave {
+            0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        /* Terminal effect */
+        .terminal {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(123, 127, 133, 0.3);
+            margin: 20px auto;
+            max-width: 380px;
+            font-size: 13px;
+            color: #7B7F85;
+            text-align: left;
+            box-shadow: 
+                0 0 20px rgba(123, 127, 133, 0.1),
+                inset 0 0 30px rgba(0, 0, 0, 0.3);
+            animation: terminalFade 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        @keyframes terminalFade {
+            to { opacity: 1; }
+        }
+
+        .terminal .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: #7B7F85;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+            box-shadow: 0 0 8px #7B7F85;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Description */
+        .error-desc {
+            font-size: 16px;
+            color: #9499a0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        /* Home button - enhanced */
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, #7B7F85, #2B2E33);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 0 20px rgba(123, 127, 133, 0.4),
+                0 0 40px rgba(123, 127, 133, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .home-btn i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 
+                0 0 35px rgba(123, 127, 133, 0.6),
+                0 0 70px rgba(123, 127, 133, 0.3),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .home-btn:hover::before {
+            left: 100%;
+        }
+
+        .home-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatParticle 5s infinite;
+        }
+
+        .particle:nth-child(1) { background: #7B7F85; left: 8%; top: 15%; animation-delay: 0s; box-shadow: 0 0 10px #7B7F85; }
+        .particle:nth-child(2) { background: #C1C4C8; left: 20%; top: 80%; animation-delay: 0.7s; box-shadow: 0 0 10px #C1C4C8; }
+        .particle:nth-child(3) { background: #9499a0; left: 80%; top: 25%; animation-delay: 1.2s; box-shadow: 0 0 10px #9499a0; }
+        .particle:nth-child(4) { background: #7B7F85; left: 70%; top: 70%; animation-delay: 1.8s; box-shadow: 0 0 10px #7B7F85; }
+        .particle:nth-child(5) { background: #C1C4C8; left: 90%; top: 50%; animation-delay: 2.2s; box-shadow: 0 0 10px #C1C4C8; }
+        .particle:nth-child(6) { background: #9499a0; left: 30%; top: 35%; animation-delay: 2.8s; box-shadow: 0 0 10px #9499a0; }
+
+        @keyframes floatParticle {
+            0%, 100% { 
+                transform: translateY(0) scale(1) rotate(0deg); 
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(-30px) scale(1.2) rotate(180deg); 
+                opacity: 1;
+            }
+        }
+
+        /* Decorative elements */
+        .corner {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(123, 127, 133, 0.2);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .corner-tl {
+            top: 30px;
+            left: 30px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 30px;
+            right: 30px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 30px;
+            left: 30px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 30px;
+            right: 30px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(123,127,133,0.12) 0%, transparent 70%);
+            top: -120px;
+            left: -120px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(123,127,133,0.08) 0%, transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        .orb-3 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(123,127,133,0.15) 0%, transparent 70%);
+            top: 50%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-25px) scale(1.05); }
+        }
+
+        /* Mouse trail effect */
+        .trail {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(123,127,133,0.6), transparent);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.4s forwards;
+        }
+
+        @keyframes trailFade {
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+        }
+
+        /* Status indicator */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(123, 127, 133, 0.25);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #7B7F85;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #7B7F85;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+            box-shadow: 0 0 10px #7B7F85;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.4; }
+        }
+
+        /* Loading spinner */
+        .loading {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(123, 127, 133, 0.2);
+            border-top-color: #7B7F85;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 15px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .error-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+            .error-code {
+                font-size: 110px;
+            }
+            .error-message {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .error-desc {
+                font-size: 14px;
+            }
+            .terminal {
+                font-size: 11px;
+                padding: 12px 16px;
+            }
+            .corner {
+                width: 40px;
+                height: 40px;
+            }
+            .orb {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Corner decorations -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="error-container">
+        <div class="status">
+            <span class="status-dot"></span>
+            ERROR 404
+        </div>
+        <div class="error-code">404</div>
+        <div class="error-code-line"></div>
+        
+        <!-- Sound wave visualizer -->
+        <div class="sound-wave">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        
+        <div class="terminal">
+            <span id="typewriter"></span><span class="cursor"></span>
+        </div>
+        
+        <div class="loading"></div>
+        
+        <div class="error-message">PAGE NOT FOUND</div>
+        <p class="error-desc">The page you're looking for doesn't exist<br>or has been moved.</p>
+        <a href="index.html" class="home-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+
+    <script>
+        // Typewriter effect
+        const text = "> Error: Page not found... \n> Please return to homepage.";
+        const typewriter = document.getElementById('typewriter');
+        let i = 0;
+        let line = 0;
+        const lines = text.split('\n');
+
+        function typeWriter() {
+            if (line < lines.length) {
+                if (i < lines[line].length) {
+                    typewriter.innerHTML += lines[line].charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 25 + Math.random() * 25);
+                } else {
+                    typewriter.innerHTML += '<br>';
+                    line++;
+                    i = 0;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+        }
+
+        setTimeout(typeWriter, 1000);
+
+        // Mouse trail effect
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 400);
+        });
+    </script>
+</body>
+</html>
+
