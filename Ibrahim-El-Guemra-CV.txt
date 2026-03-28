@@ -23,7 +23,7 @@ TECHNICAL SKILLS
 
 OPERATING SYSTEMS
 - Windows
-- Ubuntu, Kali Linux, Debian, Fedora, Linux Mint
+- Ubuntu, Kali Linux, Debian, Parrot Os, Linux Mint
 
 EXPERIENCE HIGHLIGHTS
 - Built portfolio and business-focused websites with responsive layouts.
