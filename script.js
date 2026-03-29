@@ -249,12 +249,18 @@ function showPopup(type) {
 const githubUsername = "el-guemra-br";
 const displayedRepos = 3;
 const REPO_FETCH_LIMIT = 100;
+const GITHUB_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const GITHUB_CACHE_KEY = `github-data-cache-${githubUsername}`;
 let repoDisplayExpanded = false;
+let githubLanguagesChart = null;
 
-async function loadGitHubData() {
+async function loadGitHubData(forceRefresh = false) {
     const profileCard = document.getElementById("github-profile");
     const repoList = document.getElementById("github-repo-list");
     const repoToggle = document.getElementById("github-repo-toggle");
+    const languagesEmpty = document.getElementById("github-languages-empty");
+    const languagesSync = document.getElementById("github-languages-sync");
+    const languagesRefreshBtn = document.getElementById("github-languages-refresh");
 
     if (!profileCard || !repoList) return;
 
@@ -266,26 +272,27 @@ async function loadGitHubData() {
     const updatedEl = document.getElementById("github-updated");
     const achievementsEl = document.getElementById("github-achievements");
     const orgsEl = document.getElementById("github-orgs");
+    const cachedData = readGitHubCache();
 
-    try {
-        const [userRes, reposRes, orgsRes] = await Promise.all([
-            fetch(`https://api.github.com/users/${githubUsername}`),
-            fetch(
-                `https://api.github.com/users/${githubUsername}/repos?per_page=${REPO_FETCH_LIMIT}&sort=updated`
-            ),
-            fetch(`https://api.github.com/users/${githubUsername}/orgs?per_page=20`)
-        ]);
+    if (languagesRefreshBtn && languagesRefreshBtn.dataset.bound !== "true") {
+        languagesRefreshBtn.dataset.bound = "true";
+        languagesRefreshBtn.addEventListener("click", async () => {
+            const originalText = languagesRefreshBtn.textContent;
+            languagesRefreshBtn.disabled = true;
+            languagesRefreshBtn.textContent = "Refreshing...";
+            try {
+                await loadGitHubData(true);
+            } finally {
+                languagesRefreshBtn.disabled = false;
+                languagesRefreshBtn.textContent = originalText;
+            }
+        });
+    }
 
-        if (!userRes.ok || !reposRes.ok || !orgsRes.ok) {
-            const failedResponse = !userRes.ok ? userRes : (!reposRes.ok ? reposRes : orgsRes);
-            throw new Error(
-                `GitHub API request failed: ${failedResponse.status} ${failedResponse.statusText}`
-            );
+    const applyGitHubData = (user, repos, orgs, detailedLanguageSummary, source = "live", syncedAt = Date.now()) => {
+        if (!user || !Array.isArray(repos) || !Array.isArray(orgs)) {
+            throw new Error("Invalid GitHub payload");
         }
-
-        const user = await userRes.json();
-        const repos = await reposRes.json();
-        const orgs = await orgsRes.json();
 
         if (avatar && user.avatar_url) {
             avatar.src = user.avatar_url;
@@ -328,10 +335,102 @@ async function loadGitHubData() {
         renderGitHubAchievements(achievementsEl, user, repos);
         renderGitHubOrganizations(orgsEl, orgs);
 
+        const hasDetailedData =
+            detailedLanguageSummary &&
+            detailedLanguageSummary.totals &&
+            Object.keys(detailedLanguageSummary.totals).length > 0;
+
+        const languageStats = hasDetailedData
+            ? detailedLanguageSummary.totals
+            : aggregateLanguageStatsFromRepos(repos);
+
+        if (languagesEmpty) {
+            const languageCount = Object.keys(languageStats).length;
+            if (!languageCount) {
+                languagesEmpty.textContent = "No language data found in public repositories.";
+            } else if (hasDetailedData) {
+                const sourceText = source === "cache" ? "cached" : "fresh";
+                languagesEmpty.textContent = `Showing top 6 languages from ${detailedLanguageSummary.successfulRepos}/${detailedLanguageSummary.totalRepos} repositories (${sourceText}, updates every 24h).`;
+            } else {
+                languagesEmpty.textContent = "Showing top 6 languages from repository primary language metadata (updates every 24h).";
+            }
+        }
+
+        if (languagesSync) {
+            const syncSource = source === "cache" ? "cache" : "live";
+            languagesSync.textContent = `Last synced: ${formatSyncDate(syncedAt)} (${syncSource})`;
+        }
+
+        renderGitHubLanguagesChart(languageStats, hasDetailedData ? "Code bytes" : "Repositories");
         renderGitHubRepos(repoList, repos, repoDisplayExpanded);
         setupRepoToggle(repoToggle, repoList, repos);
+    };
+
+    try {
+        const hasFreshCache = !forceRefresh && isGitHubCacheFresh(cachedData && cachedData.cachedAt);
+
+        if (hasFreshCache) {
+            applyGitHubData(
+                cachedData.user,
+                cachedData.repos,
+                cachedData.orgs,
+                cachedData.detailedLanguageSummary || { totals: {}, successfulRepos: 0, totalRepos: 0 },
+                "cache",
+                cachedData.cachedAt
+            );
+            return;
+        }
+
+        const [userRes, reposRes, orgsRes] = await Promise.all([
+            fetch(`https://api.github.com/users/${githubUsername}`),
+            fetch(
+                `https://api.github.com/users/${githubUsername}/repos?per_page=${REPO_FETCH_LIMIT}&sort=updated`
+            ),
+            fetch(`https://api.github.com/users/${githubUsername}/orgs?per_page=20`)
+        ]);
+
+        if (!userRes.ok || !reposRes.ok || !orgsRes.ok) {
+            const failedResponse = !userRes.ok ? userRes : (!reposRes.ok ? reposRes : orgsRes);
+            throw new Error(
+                `GitHub API request failed: ${failedResponse.status} ${failedResponse.statusText}`
+            );
+        }
+
+        const user = await userRes.json();
+        const repos = await reposRes.json();
+        const orgs = await orgsRes.json();
+        const detailedLanguageSummary = await aggregateDetailedLanguageStatsFromRepos(repos);
+
+        const syncedAt = Date.now();
+
+        writeGitHubCache({
+            cachedAt: syncedAt,
+            user,
+            repos,
+            orgs,
+            detailedLanguageSummary
+        });
+
+        applyGitHubData(user, repos, orgs, detailedLanguageSummary, "live", syncedAt);
     } catch (error) {
         console.error("GitHub data load failed", error);
+
+        if (cachedData && cachedData.user && cachedData.repos && cachedData.orgs) {
+            if (profileBio) {
+                profileBio.textContent = "Live fetch failed. Showing cached GitHub data.";
+            }
+
+            applyGitHubData(
+                cachedData.user,
+                cachedData.repos,
+                cachedData.orgs,
+                cachedData.detailedLanguageSummary || { totals: {}, successfulRepos: 0, totalRepos: 0 },
+                "cache",
+                cachedData.cachedAt
+            );
+            return;
+        }
+
         if (profileBio) {
             profileBio.textContent = "Unable to load GitHub info right now.";
         }
@@ -347,7 +446,211 @@ async function loadGitHubData() {
         if (repoToggle) {
             repoToggle.style.display = "none";
         }
+        if (languagesEmpty) {
+            languagesEmpty.textContent = "Language data unavailable right now.";
+        }
+        if (languagesSync) {
+            languagesSync.textContent = "Last synced: unavailable";
+        }
+        renderGitHubLanguagesChart({});
     }
+}
+
+function formatSyncDate(timestamp) {
+    const date = new Date(Number(timestamp));
+    if (Number.isNaN(date.getTime())) return "unknown";
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+function readGitHubCache() {
+    try {
+        const cachedRaw = localStorage.getItem(GITHUB_CACHE_KEY);
+        if (!cachedRaw) return null;
+        return JSON.parse(cachedRaw);
+    } catch (error) {
+        return null;
+    }
+}
+
+function writeGitHubCache(payload) {
+    try {
+        localStorage.setItem(GITHUB_CACHE_KEY, JSON.stringify(payload));
+    } catch (error) {
+        // Ignore cache write failures (private mode/storage limits)
+    }
+}
+
+function isGitHubCacheFresh(cachedAt) {
+    if (!cachedAt || Number.isNaN(Number(cachedAt))) return false;
+    return Date.now() - Number(cachedAt) < GITHUB_CACHE_TTL_MS;
+}
+
+function aggregateLanguageStatsFromRepos(repos) {
+    if (!Array.isArray(repos) || repos.length === 0) return {};
+
+    return repos
+        .filter(repo => repo.language)
+        .reduce((acc, repo) => {
+            const language = repo.language.trim();
+            if (!language) return acc;
+            acc[language] = (acc[language] || 0) + 1;
+            return acc;
+        }, {});
+}
+
+async function aggregateDetailedLanguageStatsFromRepos(repos) {
+    const repoList = Array.isArray(repos)
+        ? repos.filter(repo => repo && repo.languages_url)
+        : [];
+
+    if (!repoList.length) {
+        return {
+            totals: {},
+            successfulRepos: 0,
+            totalRepos: 0
+        };
+    }
+
+    const responses = await Promise.allSettled(
+        repoList.map(repo => fetch(repo.languages_url))
+    );
+
+    const totals = {};
+    let successfulRepos = 0;
+
+    for (const response of responses) {
+        if (response.status !== "fulfilled" || !response.value.ok) continue;
+
+        const payload = await response.value.json();
+        if (!payload || typeof payload !== "object") continue;
+
+        successfulRepos += 1;
+        Object.entries(payload).forEach(([language, bytes]) => {
+            if (!language) return;
+            totals[language] = (totals[language] || 0) + Number(bytes || 0);
+        });
+    }
+
+    return {
+        totals,
+        successfulRepos,
+        totalRepos: repoList.length
+    };
+}
+
+function renderGitHubLanguagesChart(languageStats, yAxisLabel = "Usage") {
+    const canvas = document.getElementById("github-languages-chart");
+    const languagesEmpty = document.getElementById("github-languages-empty");
+    const maxLanguagesToDisplay = 6;
+
+    if (!canvas) return;
+
+    const entries = Object.entries(languageStats || {}).sort((a, b) => b[1] - a[1]);
+
+    if (!entries.length || typeof Chart === "undefined") {
+        if (githubLanguagesChart) {
+            githubLanguagesChart.destroy();
+            githubLanguagesChart = null;
+        }
+        if (languagesEmpty && !entries.length) {
+            languagesEmpty.textContent = "No language data available for chart.";
+        }
+        return;
+    }
+
+    const maxDirectLanguages = maxLanguagesToDisplay - 1;
+    const topEntries = entries.length > maxLanguagesToDisplay
+        ? entries.slice(0, maxDirectLanguages)
+        : entries.slice(0, maxLanguagesToDisplay);
+
+    if (entries.length > maxLanguagesToDisplay) {
+        const otherValue = entries
+            .slice(maxDirectLanguages)
+            .reduce((sum, [, count]) => sum + Number(count || 0), 0);
+        topEntries.push(["Other", otherValue]);
+    }
+
+    const labels = topEntries.map(([language]) => language);
+    const values = topEntries.map(([, count]) => count);
+    const totalValue = values.reduce((sum, value) => sum + Number(value || 0), 0);
+
+    const percentageLabelPlugin = {
+        id: "percentageLabelPlugin",
+        afterDatasetsDraw(chart) {
+            if (!totalValue) return;
+
+            const { ctx } = chart;
+            const meta = chart.getDatasetMeta(0);
+            const dataset = chart.data.datasets[0];
+
+            ctx.save();
+            ctx.fillStyle = "#E7E9EC";
+            ctx.font = "12px Inter, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+
+            meta.data.forEach((bar, index) => {
+                const value = Number(dataset.data[index] || 0);
+                const percent = totalValue ? (value / totalValue) * 100 : 0;
+                const label = `${percent.toFixed(1)}%`;
+                ctx.fillText(label, bar.x, bar.y - 6);
+            });
+
+            ctx.restore();
+        }
+    };
+
+    if (githubLanguagesChart) {
+        githubLanguagesChart.destroy();
+    }
+
+    githubLanguagesChart = new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "Repositories",
+                    data: values,
+                    borderWidth: 1,
+                    backgroundColor: "rgba(255, 77, 109, 0.45)",
+                    borderColor: "rgba(255, 77, 109, 0.95)"
+                }
+            ]
+        },
+        plugins: [percentageLabelPlugin],
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: yAxisLabel
+                    },
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label(context) {
+                            const rawValue = Number(context.raw || 0);
+                            const percent = totalValue ? ((rawValue / totalValue) * 100) : 0;
+                            return `${rawValue.toLocaleString()} (${percent.toFixed(1)}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
 }
 
 function renderGitHubAchievements(target, user, repos) {
@@ -363,14 +666,8 @@ function renderGitHubAchievements(target, user, repos) {
     const activeSince = user && user.created_at ? new Date(user.created_at).getFullYear() : null;
     const nonForkRepos = repos.filter(repo => !repo.fork);
 
-    const languageMap = new Map();
-    nonForkRepos.forEach(repo => {
-        if (!repo.language) return;
-        const current = languageMap.get(repo.language) || 0;
-        languageMap.set(repo.language, current + 1);
-    });
-
-    const topLanguage = [...languageMap.entries()].sort((a, b) => b[1] - a[1])[0];
+    const languageMap = aggregateLanguageStatsFromRepos(nonForkRepos);
+    const topLanguage = Object.entries(languageMap).sort((a, b) => b[1] - a[1])[0];
     const achievementItems = [
         `${nonForkRepos.length} Public Projects`,
         `${totalStars} Total Stars`,

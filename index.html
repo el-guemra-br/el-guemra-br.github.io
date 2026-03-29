@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 
 <!-- Fonts similar to original -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@500&display=swap" rel="stylesheet">
@@ -123,13 +124,14 @@
                     <a href="#about">About</a>
                 </li>
                 <li>
-                    <i class="fa-regular fa-folder-open"></i>
-                    <a href="#project">Projects</a>
-                </li>
-                <li>
                     <i class="fa-brands fa-github"></i>
                     <a href="#github">GitHub</a>
                 </li>
+                <li>
+                    <i class="fa-regular fa-folder-open"></i>
+                    <a href="#project">Projects</a>
+                </li>
+
                 <li>
                     <i class="fa-solid fa-code"></i>
                     <a href="#service">services</a>
@@ -284,6 +286,17 @@
                 <div class="repo-toggle-wrap">
                     <button id="github-repo-toggle" class="repo-toggle-btn" type="button">See more</button>
                 </div>
+            </div>
+            <div class="github-card languages-card" id="github-languages-card">
+                <div class="repos-header">
+                    <h3>Languages usage</h3>
+                    <button id="github-languages-refresh" class="repo-toggle-btn languages-refresh-btn" type="button">Refresh now</button>
+                </div>
+                <div class="languages-chart-wrap">
+                    <canvas id="github-languages-chart" aria-label="GitHub languages usage chart" role="img" style="min-height: 220px;"></canvas>
+                </div>
+                <p id="github-languages-sync" class="languages-sync">Last synced: --</p>
+                <p id="github-languages-empty" class="repo-skeleton">Language data will appear here.</p>
             </div>
         </div>
     </section>

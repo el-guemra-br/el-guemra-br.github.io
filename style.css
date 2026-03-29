@@ -1537,6 +1537,48 @@ hr {
     font-size: 14px;
 }
 
+.languages-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.languages-refresh-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.languages-refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.languages-chart-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 230px;
+  padding: 8px 4px 0;
+}
+
+#github-languages-chart {
+  width: 100% !important;
+  height: 230px !important;
+}
+
+#github-languages-empty {
+  margin-top: 8px;
+  text-align: left;
+  color: #C1C4C8;
+  font-size: 13px;
+}
+
+.languages-sync {
+  margin-top: 10px;
+  margin-bottom: 0;
+  text-align: left;
+  color: #9ea3a9;
+  font-size: 12px;
+}
+
 /* ===== END GITHUB SECTION ===== */
 
 /* RESPONSIVE - Tablet */
@@ -1559,6 +1601,10 @@ hr {
   
   .github-grid {
     grid-template-columns: 1fr;
+  }
+
+  #github-languages-chart {
+    height: 250px !important;
   }
   
   /* Services grid adjustments */
@@ -1790,6 +1836,14 @@ hr {
   
   .github-grid {
     grid-template-columns: 1fr;
+  }
+
+  .languages-chart-wrap {
+    min-height: 200px;
+  }
+
+  #github-languages-chart {
+    height: 200px !important;
   }
   
   .profile-header {
