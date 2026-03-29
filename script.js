@@ -1,6 +1,7 @@
 
 
 window.addEventListener("load", () => {
+    document.body.classList.add("intro-lock");
 
     const animations = [
         { selector: ".top-tags", class: "from-top", delay: 0 },
@@ -30,6 +31,7 @@ window.addEventListener("load", () => {
 
         setTimeout(() => {
             intro.style.display = "none";
+            document.body.classList.remove("intro-lock");
             site.style.display = "block";
             initScrollAnimations(); 
             loadGitHubData();
@@ -854,6 +856,7 @@ const menuOverlay = document.getElementById("menu-overlay");
 
 if (menuToggle) {
     menuToggle.addEventListener("click", () => {
+        if (!divList || !menuOverlay) return;
         menuToggle.classList.toggle("active");
         divList.classList.toggle("active");
         menuOverlay.classList.toggle("active");
@@ -862,16 +865,28 @@ if (menuToggle) {
 
 if (menuOverlay) {
     menuOverlay.addEventListener("click", () => {
+        if (!menuToggle || !divList) return;
         menuToggle.classList.remove("active");
         divList.classList.remove("active");
         menuOverlay.classList.remove("active");
     });
 }
 
+const navItemsClickable = document.querySelectorAll(".ul-list li");
+navItemsClickable.forEach(item => {
+    item.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
+        const link = item.querySelector('a[href^="#"]');
+        if (!link) return;
+        link.click();
+    });
+});
+
 // Close menu when clicking a nav link
 const navLinks = document.querySelectorAll(".ul-list li a");
 navLinks.forEach(link => {
     link.addEventListener("click", () => {
+        if (!menuToggle || !divList || !menuOverlay) return;
         menuToggle.classList.remove("active");
         divList.classList.remove("active");
         menuOverlay.classList.remove("active");
