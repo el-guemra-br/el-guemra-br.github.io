@@ -2,6 +2,10 @@
 
 window.addEventListener("load", () => {
     document.body.classList.add("intro-lock");
+    const intro = document.getElementById("intro");
+    const site = document.getElementById("real-site");
+
+    if (!intro || !site) return;
 
     const animations = [
         { selector: ".top-tags", class: "from-top", delay: 0 },
@@ -22,10 +26,15 @@ window.addEventListener("load", () => {
         }
     });
 
-    // ===== HIDE INTRO =====
-    setTimeout(() => {
-        const intro = document.getElementById("intro");
-        const site = document.getElementById("real-site");
+    let introDismissed = false;
+
+    const finishIntro = () => {
+        if (introDismissed) return;
+        introDismissed = true;
+
+        clearTimeout(autoHideTimer);
+        intro.removeEventListener("pointerdown", skipIntro);
+        document.removeEventListener("keydown", skipOnKeydown);
 
         intro.classList.add("smooth-out");
 
@@ -36,7 +45,25 @@ window.addEventListener("load", () => {
             initScrollAnimations(); 
             loadGitHubData();
         }, 1000);
-    }, 3000);
+    };
+
+    const skipIntro = () => {
+        finishIntro();
+    };
+
+    const skipOnKeydown = (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            skipIntro();
+        }
+    };
+
+    intro.addEventListener("pointerdown", skipIntro);
+    document.addEventListener("keydown", skipOnKeydown);
+
+    // ===== AUTO HIDE INTRO =====
+    const autoHideTimer = setTimeout(() => {
+        finishIntro();
+    }, 5000);
 });
 
 
