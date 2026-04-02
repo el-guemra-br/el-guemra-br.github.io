@@ -756,6 +756,36 @@ hr {
     transition: 0.35s ease;
 }
 
+  .project-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    margin-bottom: 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+
+  .status-existing {
+    color: #d7f7df;
+    background: rgba(40, 167, 69, 0.2);
+    border-color: rgba(40, 167, 69, 0.45);
+  }
+
+  .status-working {
+    color: #fff3cd;
+    background: rgba(255, 193, 7, 0.2);
+    border-color: rgba(255, 193, 7, 0.45);
+  }
+
+  .status-future {
+    color: #d6ddff;
+    background: rgba(77, 106, 255, 0.2);
+    border-color: rgba(77, 106, 255, 0.45);
+  }
+
 /* HOVER EFFECT */
 .project-card:hover {
     transform: translateY(-8px) scale(1.02);
