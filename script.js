@@ -1,11 +1,65 @@
 
+const INTRO_SEEN_KEY = "intro-seen";
+const LAST_SCROLL_KEY = "last-scroll-y";
+
+function setSessionValue(key, value) {
+    try {
+        sessionStorage.setItem(key, value);
+    } catch (error) {
+        // Ignore storage errors (private mode/restricted storage)
+    }
+}
+
+function getSessionValue(key) {
+    try {
+        return sessionStorage.getItem(key);
+    } catch (error) {
+        return null;
+    }
+}
+
+function saveScrollPosition() {
+    setSessionValue(LAST_SCROLL_KEY, String(window.scrollY || 0));
+}
+
+function restoreScrollPosition() {
+    const savedValue = Number(getSessionValue(LAST_SCROLL_KEY));
+
+    if (!Number.isFinite(savedValue) || savedValue < 0) return;
+
+    window.scrollTo({
+        top: savedValue,
+        left: 0,
+        behavior: "auto"
+    });
+}
 
 window.addEventListener("load", () => {
-    document.body.classList.add("intro-lock");
     const intro = document.getElementById("intro");
     const site = document.getElementById("real-site");
 
     if (!intro || !site) return;
+
+    const showSite = () => {
+        intro.style.display = "none";
+        document.body.classList.remove("intro-lock");
+        site.style.display = "block";
+        initScrollAnimations();
+        loadGitHubData();
+
+        requestAnimationFrame(() => {
+            restoreScrollPosition();
+        });
+    };
+
+    const introSeen = getSessionValue(INTRO_SEEN_KEY) === "1";
+
+    if (introSeen) {
+        showSite();
+        return;
+    }
+
+    document.body.classList.add("intro-lock");
 
     const animations = [
         { selector: ".top-tags", class: "from-top", delay: 0 },
@@ -27,23 +81,23 @@ window.addEventListener("load", () => {
     });
 
     let introDismissed = false;
+    let autoHideTimer = null;
 
     const finishIntro = () => {
         if (introDismissed) return;
         introDismissed = true;
 
-        clearTimeout(autoHideTimer);
+        if (autoHideTimer) {
+            clearTimeout(autoHideTimer);
+        }
         intro.removeEventListener("pointerdown", skipIntro);
         document.removeEventListener("keydown", skipOnKeydown);
+        setSessionValue(INTRO_SEEN_KEY, "1");
 
         intro.classList.add("smooth-out");
 
         setTimeout(() => {
-            intro.style.display = "none";
-            document.body.classList.remove("intro-lock");
-            site.style.display = "block";
-            initScrollAnimations(); 
-            loadGitHubData();
+            showSite();
         }, 1000);
     };
 
@@ -61,7 +115,7 @@ window.addEventListener("load", () => {
     document.addEventListener("keydown", skipOnKeydown);
 
     // ===== AUTO HIDE INTRO =====
-    const autoHideTimer = setTimeout(() => {
+    autoHideTimer = setTimeout(() => {
         finishIntro();
     }, 5000);
 });
@@ -98,6 +152,8 @@ const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".ul-list li");
 
 window.addEventListener("scroll", () => {
+    saveScrollPosition();
+
     let current = "";
 
     sections.forEach(section => {
@@ -116,6 +172,16 @@ window.addEventListener("scroll", () => {
         if (link && link.getAttribute("href") === `#${current}`) {
             item.classList.add("active");
         }
+    });
+});
+
+window.addEventListener("pagehide", saveScrollPosition);
+window.addEventListener("beforeunload", saveScrollPosition);
+window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+
+    requestAnimationFrame(() => {
+        restoreScrollPosition();
     });
 });
 
