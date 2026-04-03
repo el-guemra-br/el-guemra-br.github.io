@@ -1,7 +1,10 @@
 
+
 .DS_Store
 Thumbs.db
 
 # Local working docs
 bio.md
 profile README.md
+.instructions.md
+.gitignore
