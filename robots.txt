@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://el-guemra-br.github.io/sitemap.xml
 Sitemap: https://el-guemra-br.github.io/sitemap.txt
+Sitemap: https://el-guemra-br.github.io/sitemap-index.xml
