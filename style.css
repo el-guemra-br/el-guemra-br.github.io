@@ -374,7 +374,7 @@ body.intro-lock {
 }
 
 .smooth-out {
-    animation: smoothOut 1.2s ease forwards;
+  animation: smoothOut 0.45s ease forwards;
 }
 
 @keyframes smoothOut {
@@ -615,6 +615,10 @@ header {
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 0 15px rgba(123, 127, 133, 0.4);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-home1:hover {

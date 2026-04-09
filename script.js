@@ -1,6 +1,8 @@
 
 const INTRO_SEEN_KEY = "intro-seen";
 const LAST_SCROLL_KEY = "last-scroll-y";
+const INTRO_AUTO_HIDE_MS = 1500;
+const INTRO_EXIT_MS = 450;
 
 function setSessionValue(key, value) {
     try {
@@ -34,7 +36,7 @@ function restoreScrollPosition() {
     });
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", () => {
     const intro = document.getElementById("intro");
     const site = document.getElementById("real-site");
 
@@ -45,7 +47,7 @@ window.addEventListener("load", () => {
         document.body.classList.remove("intro-lock");
         site.style.display = "block";
         initScrollAnimations();
-        loadGitHubData();
+        scheduleGitHubLoad();
 
         requestAnimationFrame(() => {
             restoreScrollPosition();
@@ -98,7 +100,7 @@ window.addEventListener("load", () => {
 
         setTimeout(() => {
             showSite();
-        }, 1000);
+        }, INTRO_EXIT_MS);
     };
 
     const skipIntro = () => {
@@ -117,7 +119,7 @@ window.addEventListener("load", () => {
     // ===== AUTO HIDE INTRO =====
     autoHideTimer = setTimeout(() => {
         finishIntro();
-    }, 5000);
+    }, INTRO_AUTO_HIDE_MS);
 });
 
 
@@ -341,6 +343,48 @@ function showPopup(type) {
 // ===============================
 // GITHUB DATA
 // ===============================
+let githubDataStarted = false;
+
+function startGitHubDataOnce() {
+    if (githubDataStarted) return;
+    githubDataStarted = true;
+    loadGitHubData();
+}
+
+function scheduleGitHubLoad() {
+    const githubSection = document.getElementById("github");
+
+    if (!githubSection) {
+        startGitHubDataOnce();
+        return;
+    }
+
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                observer.disconnect();
+                startGitHubDataOnce();
+            });
+        }, {
+            rootMargin: "200px 0px",
+            threshold: 0.15
+        });
+
+        observer.observe(githubSection);
+    }
+
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => {
+            startGitHubDataOnce();
+        }, { timeout: 3000 });
+    } else {
+        setTimeout(() => {
+            startGitHubDataOnce();
+        }, 3000);
+    }
+}
+
 const githubUsername = "el-guemra-br";
 const displayedRepos = 3;
 const REPO_FETCH_LIMIT = 100;
