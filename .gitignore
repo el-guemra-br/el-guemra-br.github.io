@@ -1,5 +1,5 @@
 
-
+.gitignore
 .DS_Store
 Thumbs.db
 
@@ -10,3 +10,5 @@ profile README.md
 .gitignore
 e.txt
 e.md
+personal-info.json
+
