@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://el-guemra-br.github.io/sitemap.xml
-Sitemap: https://el-guemra-br.github.io/sitemap.txt
-Sitemap: https://el-guemra-br.github.io/sitemap-index.xml
+Sitemap: https://el-guemra-br.dev/sitemap.xml
+Sitemap: https://el-guemra-br.dev/sitemap.txt
+Sitemap: https://el-guemra-br.dev/sitemap-index.xml
 sitemap: https://a575228.sitemaphosting7.com/4682425/sitemap_4682425.xml

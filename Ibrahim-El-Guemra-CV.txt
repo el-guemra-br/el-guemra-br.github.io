@@ -5,7 +5,7 @@ Morocco, Taroudant
 Email: brahimgamra11@gmail.com
 Phone: +212 0710169569
 GitHub: https://github.com/el-guemra-br
-Portfolio: https://el-guemra-br.github.io
+Portfolio: https://el-guemra-br.dev
 Active Project: https://gamrawoodcraft.github.io
 
 PROFESSIONAL SUMMARY
@@ -37,7 +37,7 @@ PROJECTS
    Role: Design and development of online workshop presence.
 
 2) Personal Portfolio Website
-   Live: https://el-guemra-br.github.io
+   Live: https://el-guemra-br.dev
    GitHub: https://github.com/el-guemra-br/el-guemra-br.github.io
 
 EDUCATION

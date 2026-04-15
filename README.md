@@ -12,7 +12,7 @@ A modern and elegant personal portfolio website built to present my projects, sk
 
 ## Live Demo 
 
-You can view the live website here: [Live Demo](https://el-guemra-br.github.io)
+You can view the live website here: [Live Demo](https://el-guemra-br.dev)
 
 
 ---
