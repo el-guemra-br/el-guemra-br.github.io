@@ -113,11 +113,11 @@ export default function Converter() {
             </label>
             <span className="text-xs text-slate-400">
               {quality >= 90 ? (
-                <img src="./icons/box.svg" alt="Best Quality" className="w-4 h-4" />
+                <img src="./icons/box.webp" alt="Best Quality" className="w-4 h-4" />
               ) : quality >= 70 ? (
-                <img src="./icons/balance.svg" alt="Balanced" className="w-4 h-4" />
+                <img src="./icons/balance.webp" alt="Balanced" className="w-4 h-4" />
               ) : (
-                <img src="./icons/compressio.svg" alt="Max Compression" className="w-4 h-4" />
+                <img src="./icons/compressio.webp" alt="Max Compression" className="w-4 h-4" />
               )}
             </span>
           </div>

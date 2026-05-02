@@ -272,7 +272,7 @@ export default function SEOContent() {
 
             {/* CTA */}
             <div className="rounded-2xl bg-violet-50 border border-violet-100 p-6 text-center">
-              <div className="text-3xl mb-3" style={{ alignItems: "center" }}><img src="./icons/rocket-chat.svg" alt="Ready to optimize?" className="w-8 h-8" /></div>
+              <div className="text-3xl mb-3" style={{ alignItems: "center" }}><img src="./icons/rocket-chat.webp" alt="Ready to optimize?" className="w-8 h-8" /></div>
               <h4 className="font-extrabold text-slate-800 text-base mb-2">Ready to optimize?</h4>
               <p className="text-slate-500 text-xs mb-4">
                 Convert your first image in under 5 seconds — no sign-up needed.
