@@ -11,6 +11,7 @@ profile README.md
 e.txt
 e.md
 personal-info.json
+node_modules/
 
 webpconverter/node_modules/
 webpconverter/.vscode
