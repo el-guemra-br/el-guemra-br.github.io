@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+/* =============================================
+   GLOBAL BASE STYLES
+   ============================================= */
+:root {
+  --red-glow: #dc2626;
+  --red-dim: #991b1b;
+  --gold: #d4af37;
+  --dark-bg: #050507;
+  --dark-card: #0d0d12;
+  --dark-surface: #111118;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: #f3f4f6;
+  font-family: 'Rajdhani', 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* =============================================
+   TYPOGRAPHY
+   ============================================= */
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* =============================================
+   GLOW EFFECTS
+   ============================================= */
+.glow-red {
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.5), 0 0 40px rgba(220, 38, 38, 0.2);
+}
+
+.glow-red-text {
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 0 0 40px rgba(220, 38, 38, 0.4);
+}
+
+.glow-gold-text {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+/* =============================================
+   GLASSMORPHISM
+   ============================================= */
+.glass {
+  background: rgba(13, 13, 18, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* =============================================
+   BUTTON ANIMATIONS
+   ============================================= */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.4), 0 0 30px rgba(220, 38, 38, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.8), 0 0 60px rgba(220, 38, 38, 0.4), 0 0 90px rgba(220, 38, 38, 0.2);
+  }
+}
+
+@keyframes pulse-glow-outline {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.2), inset 0 0 10px rgba(220, 38, 38, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.5), inset 0 0 20px rgba(220, 38, 38, 0.1);
+  }
+}
+
+.btn-primary {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+.btn-secondary {
+  animation: pulse-glow-outline 2.5s ease-in-out infinite;
+}
+
+/* =============================================
+   HERO SECTION
+   ============================================= */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.hero-logo-float {
+  animation: hero-float 4s ease-in-out infinite;
+}
+
+.scanline {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.3), transparent);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+}
+
+/* =============================================
+   COLLECTION CARDS
+   ============================================= */
+.collection-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.collection-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4), 0 0 40px rgba(220, 38, 38, 0.2);
+}
+
+.collection-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(220, 38, 38, 0.1) 0%,
+    transparent 50%,
+    rgba(220, 38, 38, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.collection-card:hover::before {
+  opacity: 1;
+}
+
+.collection-card .card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 7, 0.98) 0%,
+    rgba(5, 5, 7, 0.7) 50%,
+    rgba(5, 5, 7, 0.1) 100%
+  );
+  transition: background 0.4s ease;
+}
+
+.collection-card:hover .card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 7, 0.99) 0%,
+    rgba(80, 10, 10, 0.5) 60%,
+    rgba(5, 5, 7, 0.1) 100%
+  );
+}
+
+/* =============================================
+   ACCORDION
+   ============================================= */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.accordion-content.open {
+  max-height: 300px;
+}
+
+/* =============================================
+   CAROUSEL / SWIPER
+   ============================================= */
+.swiper-pagination-bullet {
+  background: rgba(220, 38, 38, 0.5) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #dc2626 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #dc2626 !important;
+}
+
+/* =============================================
+   SCROLL ANIMATIONS
+   ============================================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 0.7s ease forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.7s ease forwards;
+}
+
+/* =============================================
+   DECORATIVE ELEMENTS
+   ============================================= */
+.red-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #dc2626, transparent);
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #dc2626, #991b1b);
+  margin: 12px auto 0;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #dc2626;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* =============================================
+   PARTICLES / BG NOISE
+   ============================================= */
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  33% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+  66% { transform: translateY(10px) translateX(-10px); opacity: 0.2; }
+}
+
+/* =============================================
+   SCREENSHOT GALLERY
+   ============================================= */
+.screenshot-img {
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.screenshot-img:hover {
+  border-color: rgba(220, 38, 38, 0.6);
+  transform: scale(1.03);
+}
+
+/* =============================================
+   DOWNLOAD SECTION
+   ============================================= */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.download-icon {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050507;
+}
+::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #991b1b;
+}
+
+/* =============================================
+   SELECTION
+   ============================================= */
+::selection {
+  background: rgba(220, 38, 38, 0.3);
+  color: #fff;
+}
+
+/* Red line border animation */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(220, 38, 38, 0.3); }
+  50% { border-color: rgba(220, 38, 38, 0.8); }
+}
+
+.border-animate {
+  animation: border-glow 3s ease-in-out infinite;
+}
