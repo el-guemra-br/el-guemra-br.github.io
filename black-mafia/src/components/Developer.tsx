@@ -130,7 +130,7 @@ export default function Developer() {
               <div className="text-red-800/50 text-6xl font-serif leading-none mb-2 -mt-2">"</div>
 
               <p className="font-rajdhani text-gray-200 text-base sm:text-lg leading-relaxed mb-6">
-                I'm <span className="text-white font-semibold">el-guemra-br</span>, an moroccan developer
+                I'm <span className="text-white font-semibold">el-guemra-br</span>, a moroccan developer
                 passionate about creating immersive digital experiences. Black Mafia was born from a
                 love for party games and cinematic storytelling — taking the classic Mafia game and
                 transforming it into something truly unique.

@@ -61,7 +61,7 @@ export default function DownloadSection() {
               </div>
               <div>
                 <h3 className="font-cinzel text-xl font-black text-white">Black Mafia</h3>
-                <p className="font-rajdhani text-gray-300 text-sm tracking-wide">Digital Party Game</p>
+                <p className="font-rajdhani text-white-300 text-sm tracking-wide">Digital Party Game</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function DownloadSection() {
                 <HardDrive size={18} />
               </div>
               <div>
-                <p className="font-rajdhani text-xs text-gray-400 tracking-widest uppercase">Version</p>
+                <p className="font-rajdhani text-xs text-white-400 tracking-widest uppercase">Version</p>
                 <p className="font-cinzel text-white font-bold text-lg">v1.0.0</p>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function DownloadSection() {
                 <Package size={18} />
               </div>
               <div>
-                <p className="font-rajdhani text-xs text-gray-400 tracking-widest uppercase">File Size</p>
+                <p className="font-rajdhani text-xs text-white-400 tracking-widest uppercase">File Size</p>
                 <p className="font-cinzel text-white font-bold text-lg">~85 MB</p>
               </div>
             </div>
@@ -96,7 +96,7 @@ export default function DownloadSection() {
                 <Smartphone size={18} />
               </div>
               <div>
-                <p className="font-rajdhani text-xs text-gray-400 tracking-widest uppercase">Requires</p>
+                <p className="font-rajdhani text-xs text-white-400 tracking-widest uppercase">Requires</p>
                 <p className="font-cinzel text-white font-bold text-lg">Android 7+</p>
               </div>
             </div>
@@ -115,8 +115,11 @@ export default function DownloadSection() {
               />
               Download APK
             </a>
-            <p className="font-rajdhani text-gray-400 text-sm">
+            <p className="font-rajdhani text-white-400 text-sm">
               Free forever • No account needed • Works offline
+            </p>
+            <p className="font-rajdhani text-yellow-100 text-1xl">
+              Use this code to unlock all collections: <span className="font-bold text-red-400 text-2xl group-hover:translate-y-1 transition-transform">el-guemra-br</span>
             </p>
           </div>
         </div>
@@ -138,7 +141,7 @@ export default function DownloadSection() {
                 Before Installing
               </h4>
             </div>
-            <p className="font-rajdhani text-gray-300 text-sm leading-relaxed">
+            <p className="font-rajdhani text-white-300 text-sm leading-relaxed">
               Black Mafia is an{' '}
               <span className="text-yellow-400">Android APK</span> file, not available on the Google
               Play Store. You need to enable{' '}
@@ -166,7 +169,7 @@ export default function DownloadSection() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-900/50 border border-red-700/50 flex items-center justify-center font-cinzel text-xs font-bold text-red-400">
                     {step}
                   </span>
-                  <span className="font-rajdhani text-gray-300 text-sm leading-relaxed">{text}</span>
+                  <span className="font-rajdhani text-white-300 text-sm leading-relaxed">{text}</span>
                 </li>
               ))}
             </ol>

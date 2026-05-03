@@ -60,7 +60,7 @@ export default function Footer() {
             </h3>
             <p className="font-rajdhani text-gray-300 text-sm leading-relaxed mb-6">
               A cinematic digital Mafia party game with 6 unique thematic collections.
-              Built with passion by an indie developer for friends who love to play together.
+              For friends who love to play together.
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-3">
