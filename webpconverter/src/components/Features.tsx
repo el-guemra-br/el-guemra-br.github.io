@@ -1,20 +1,20 @@
 const features = [
   {
-    icon: <img src="./icons/private.webp" alt="100% Private" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/private.webp`} alt="100% Private" className="w-8 h-8" />,
     title: "100% Private",
     description:
       "All conversion happens inside your browser. Your images are never uploaded to any server — not even ours. Complete privacy, guaranteed.",
     highlight: true,
   },
   {
-    icon: <img src="./icons/lightning-fast.webp" alt="Lightning Fast" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/lightning-fast.webp`} alt="Lightning Fast" className="w-8 h-8" />,
     title: "Lightning Fast",
     description:
       "Native browser Canvas API powers the conversion. Most images convert in under a second, regardless of your internet speed.",
     highlight: false,
   },
   {
-    icon: <img src="./icons/conversion.webp" alt="Batch Conversion" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/conversion.webp`} alt="Batch Conversion" className="w-8 h-8" />,
     title: "Batch Conversion",
     description:
       "Convert an entire folder of images in one go. Select multiple files and they'll all be converted and ready to download simultaneously.",
@@ -22,21 +22,21 @@ const features = [
   },
   
   {
-    icon: <img src="./icons/control.webp" alt="Quality Control" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/control.webp`} alt="Quality Control" className="w-8 h-8" />,
     title: "Quality Control",
     description:
       "Fine-tune the output quality from 10% to 100% using the built-in slider. Preview size savings before you even download.",
     highlight: false,
   },
   {
-    icon: <img src="./icons/file-code.webp" alt="All Major Formats" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/file-code.webp`} alt="All Major Formats" className="w-8 h-8" />,
     title: "All Major Formats",
     description:
       "Supports JPG/JPEG, PNG, GIF, BMP, AVIF, TIFF, and any other format your browser can render — all converted to modern WebP.",
     highlight: true,
   },
   {
-    icon: <img src="./icons/money-bag.webp" alt="Completely Free" className="w-8 h-8" />,
+    icon: <img src={`${import.meta.env.BASE_URL}icons/money-bag.webp`} alt="Completely Free" className="w-8 h-8" />,
     title: "Completely Free",
     description:
       "No subscriptions, no watermarks, no limits on file count or size. WebP Converter is free forever — no strings attached.",
