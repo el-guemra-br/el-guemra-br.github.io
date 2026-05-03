@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
+  // When deploying under a sub-path (e.g. GitHub Pages folder),I have to set `base` so built asset URLs resolve correctly.
+  base: '/black-mafia/',
   plugins: [react(), tailwindcss(), viteSingleFile()],
   resolve: {
     alias: {
