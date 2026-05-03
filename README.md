@@ -1,7 +1,7 @@
 
 
 <p align ="center">
-  <img src="portfolio showcase.png" alt="Description" width="600">
+  <img src="portfolio showcase.webp" alt="Description" width="600">
 </p>
 
 # Brahim Portfolio Showcase 
