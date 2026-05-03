@@ -88,7 +88,7 @@ export default function DownloadSection() {
               </div>
               <div>
                 <p className="font-rajdhani text-xs text-white-400 tracking-widest uppercase">File Size</p>
-                <p className="font-cinzel text-white font-bold text-lg">~85 MB</p>
+                <p className="font-cinzel text-white font-bold text-lg">~74 MB</p>
               </div>
             </div>
             <div className="px-8 py-6 flex items-center gap-4">
@@ -105,7 +105,7 @@ export default function DownloadSection() {
           {/* Download Button */}
           <div className="px-8 py-8 flex flex-col items-center gap-4">
             <a
-              href="/apk/black_mafia.apk"
+              href="./apk/black_mafia.apk"
               download
               className="btn-primary group flex items-center gap-4 bg-red-700 hover:bg-red-600 text-white font-cinzel font-black tracking-widest text-lg uppercase px-12 py-5 rounded-lg transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center"
             >

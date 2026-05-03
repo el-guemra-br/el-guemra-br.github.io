@@ -17,37 +17,37 @@ const cardCollections: CardCollectionData[] = [
   {
     id: 'anime',
     name: 'Anime — Mafia Noir',
-    previewImg: '/images/collection-anime.webp',
+    previewImg: './images/collection-anime.webp',
     color: 'from-purple-900/60 to-black',
   },
   {
     id: 'egypt',
     name: 'Old Egyptian',
-    previewImg: '/images/collection-egypt.webp',
+    previewImg: './images/collection-egypt.webp',
     color: 'from-yellow-900/50 to-black',
   },
   {
     id: 'gothic',
     name: 'Victorian Gothic',
-    previewImg: '/images/collection-gothic.webp',
+    previewImg: './images/collection-gothic.webp',
     color: 'from-purple-950/60 to-black',
   },
   {
     id: 'pirates',
     name: 'Pirates',
-    previewImg: '/images/collection-pirates.webp',
+    previewImg: './images/collection-pirates.webp',
     color: 'from-blue-950/60 to-black',
   },
   {
     id: 'samurai',
     name: 'Samurai Era',
-    previewImg: '/images/collection-samurai.webp',
+    previewImg: './images/collection-samurai.webp',
     color: 'from-red-950/60 to-black',
   },
   {
     id: 'wildwest',
     name: 'Wild West',
-    previewImg: '/images/collection-wildwest.webp',
+    previewImg: './images/collection-wildwest.webp',
     color: 'from-orange-950/60 to-black',
   },
 ];

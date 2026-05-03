@@ -22,7 +22,7 @@ const collections: Collection[] = [
     subtitle: 'Mafia Noir',
     description:
       'Step into a neon-lit anime world where the Mafia Boss commands the shadows and style meets street-level danger.',
-    image: '/images/collection-anime.webp',
+    image: './images/collection-anime.webp',
     accentColor: 'from-purple-900/80',
     characters: ['Mafia Boss', 'Sniper', 'Silencer', 'Good Boy', 'Mayor'],
   },
@@ -32,7 +32,7 @@ const collections: Collection[] = [
     subtitle: 'Pharaohs of Deceit',
     description:
       'Ancient gods play deadly politics. Set, Pharaoh, Archer of Horus — who truly controls the Nile?',
-    image: '/images/collection-egypt.webp',
+    image: './images/collection-egypt.webp',
     accentColor: 'from-yellow-900/80',
     characters: ['Set — God of Chaos', 'Priestess of Isis', 'Tomb Raider', 'Pharaoh', 'Archer of Horus'],
   },
@@ -42,7 +42,7 @@ const collections: Collection[] = [
     subtitle: 'Dust & Gunpowder',
     description:
       'In the lawless frontier, alliances crumble like desert sand. Outlaws versus townsfolk — draw first or die.',
-    image: '/images/collection-wildwest.webp',
+    image: './images/collection-wildwest.webp',
     accentColor: 'from-orange-900/80',
     characters: ['The Sheriff', 'Outlaw Boss', 'Bounty Hunter', 'Saloon Singer', 'Undertaker'],
   },
@@ -52,7 +52,7 @@ const collections: Collection[] = [
     subtitle: 'Darkness Reigns',
     description:
       'Vampire lords, banshees, and monster hunters collide in fog-draped Victorian streets. Trust no one after dark.',
-    image: '/images/collection-gothic.webp',
+    image: './images/collection-gothic.webp',
     accentColor: 'from-purple-950/80',
     characters: ['Vampire Lord', 'Banshee', 'Monster Hunter', 'Burgomaster', 'Alchemist'],
   },
@@ -62,7 +62,7 @@ const collections: Collection[] = [
     subtitle: 'Seas of Betrayal',
     description:
       'Sail the treacherous seas with pirate captains and sirens. The crew is your greatest weapon — and your greatest threat.',
-    image: '/images/collection-pirates.webp',
+    image: './images/collection-pirates.webp',
     accentColor: 'from-blue-900/80',
     characters: ['Pirate Captain', 'Siren', 'Port Governor', "Crow's Nest Shooter", 'Ship Surgeon'],
   },
@@ -72,7 +72,7 @@ const collections: Collection[] = [
     subtitle: 'Honor & Shadow',
     description:
       'The Shadow Shogun controls the clan from darkness. Kunoichi, Ronin Spy, and Daimyo — honor has a price.',
-    image: '/images/collection-samurai.webp',
+    image: './images/collection-samurai.webp',
     accentColor: 'from-red-950/80',
     characters: ['Shadow Shogun', 'Kunoichi', 'Ronin Spy', 'Daimyo', 'Shrine Monk'],
   },

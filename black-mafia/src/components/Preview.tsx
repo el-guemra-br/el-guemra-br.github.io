@@ -9,32 +9,32 @@ import { useInView } from '../hooks/useInView';
 /* Screenshot gallery items using the uploaded card images */
 const screenshots = [
   {
-    src: '/images/collection-anime.webp',
+    src: './images/collection-anime.webp',
     caption: 'Anime Collection – Mafia Noir',
     label: 'Anime',
   },
   {
-    src: '/images/collection-egypt.webp',
+    src: './images/collection-egypt.webp',
     caption: 'Old Egyptian Collection – Pharaohs of Deceit',
     label: 'Egyptian',
   },
   {
-    src: '/images/collection-gothic.webp',
+    src: './images/collection-gothic.webp',
     caption: 'Victorian Gothic Collection – Darkness Reigns',
     label: 'Gothic',
   },
   {
-    src: '/images/collection-pirates.webp',
+    src: './images/collection-pirates.webp',
     caption: 'Pirates Collection – Seas of Betrayal',
     label: 'Pirates',
   },
   {
-    src: '/images/collection-samurai.webp',
+    src: './images/collection-samurai.webp',
     caption: 'Samurai Era Collection – Honor & Shadow',
     label: 'Samurai',
   },
   {
-    src: '/images/collection-wildwest.webp',
+    src: './images/collection-wildwest.webp',
     caption: 'Wild West Collection – Dust & Gunpowder',
     label: 'Wild West',
   },
@@ -103,7 +103,7 @@ export default function Preview() {
               /* Video thumbnail placeholder */
               <div className="relative w-full h-full min-h-[280px] sm:min-h-[400px] flex items-center justify-center bg-black">
                 <img
-                  src="/images/hero-bg.webp"
+                  src="./images/hero-bg.webp"
                   alt="Video thumbnail"
                   className="absolute inset-0 w-full h-full object-cover opacity-40"
                 />

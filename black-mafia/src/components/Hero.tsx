@@ -46,7 +46,7 @@ export default function Hero() {
       {/* === Background Image === */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero-bg.webp')" }}
+        style={{ backgroundImage: "url('./images/hero-bg.webp')" }}
       />
 
       {/* === Dark overlay gradient === */}
@@ -72,7 +72,7 @@ export default function Hero() {
         {/* Logo Image */}
         <div className="hero-logo-float mb-6 flex justify-center">
           <img
-            src="/images/black-mafia-logo.webp"
+            src="./images/black-mafia-logo.webp"
             alt="Black Mafia Logo"
             className="w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 object-contain drop-shadow-2xl"
             style={{
