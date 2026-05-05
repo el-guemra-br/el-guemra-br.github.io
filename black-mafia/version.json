@@ -1,0 +1,6 @@
+{
+  "latestVersion": "1.0.0",
+  "downloadUrl": "https://el-guemra-br.dev/black-mafia/dist/apk/black_mafia.apk",
+  "releaseNotes": "- Initial Release\n- Fixed Multiplayer sync issues\n- Improved button aesthetics",
+  "isMandatory": false
+}
