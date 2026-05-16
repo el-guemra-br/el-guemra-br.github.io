@@ -2,18 +2,18 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-400">
+    <footer className="bg-lavender-grey text-slate-800">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 py-10 px-4 text-center">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+      <div className="py-10 px-4 text-center" style={{ backgroundColor: 'var(--lavender)', color: '#021025' }}>
+        <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
           Ready to shrink your images?
         </h2>
-        <p className="text-violet-100 mb-6 text-sm sm:text-base">
+        <p className="mb-6 text-sm sm:text-base text-thistle">
           Free, instant, private — no sign-up required.
         </p>
         <a
           href="#converter"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-violet-700 font-bold text-sm shadow-lg hover:bg-violet-50 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-lavender-veil text-lavender-grey font-bold text-sm shadow-lg hover:opacity-90 transition-opacity"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -27,13 +27,13 @@ export default function Footer() {
         {/* Brand */}
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow">
+            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-lavender to-lavender-grey flex items-center justify-center shadow">
               <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <span className="text-lg font-bold text-white">
-              WebP<span className="text-violet-400">Converter</span>
+              WebP<span className="text-lavender-veil">Converter</span>
             </span>
           </div>
           <p className="text-sm leading-relaxed max-w-xs">
@@ -43,11 +43,11 @@ export default function Footer() {
           <div className="flex gap-3 mt-5">
             {/* Supported formats badges */}
             {["JPG", "PNG", "GIF", "BMP", "AVIF"].map((f) => (
-              <span key={f} className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-xs font-mono border border-slate-700">
+              <span key={f} className="px-2 py-0.5 rounded bg-lavender-grey/80 text-thistle text-xs font-mono border border-lavender">
                 {f}
               </span>
             ))}
-            <span className="px-2 py-0.5 rounded bg-violet-900/50 text-violet-400 text-xs font-mono border border-violet-800">
+            <span className="px-2 py-0.5 rounded bg-lavender/80 text-lavender-grey text-xs font-mono border border-lavender">
               → WebP
             </span>
           </div>

@@ -8,6 +8,12 @@ const SOURCE_FILES = ['./README.md', './readme.md'];
 const PROJECT_NAME = 'Cybersecurity Roadmap';
 const CREATOR_NAME = 'el-guemra-br';
 const MAX_CHECKPOINTS = 20;
+const ADSENSE_CONFIG = {
+  enabled: false,
+  client: '',
+  slot: '',
+  testMode: true,
+};
 
 const state = loadState();
 const notesState = loadNotes();
@@ -80,6 +86,8 @@ const elements = {
   congratsClose: document.getElementById('congrats-close'),
   congratsReview: document.getElementById('congrats-review'),
   congratsReset: document.getElementById('congrats-reset'),
+  adSlot: document.getElementById('product-ad-slot'),
+  adSlotStatus: document.getElementById('ad-slot-status'),
 };
 
 let matrixAnimationFrameId = null;
@@ -87,6 +95,8 @@ let matrixColumns = [];
 let matrixFontSize = 18;
 let matrixGlyphs = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
 let matrixFrameTick = 0;
+let lastMatrixFrameTime = 0;
+const MATRIX_MAX_FPS = 30; // throttle to reduce CPU during animations
 
 elements.resetButton.addEventListener('click', async () => {
   const confirmed = await showConfirm('Reset Progress', 'Reset all roadmap progress in this browser?');
@@ -400,8 +410,81 @@ async function boot() {
   updateContactCounter();
   stampContactStartTime();
   registerServiceWorker();
+  initializeMonetization();
   updateCurrentPhaseByViewport();
   window.addEventListener('scroll', updateCurrentPhaseByViewport, { passive: true });
+}
+
+function initializeMonetization() {
+  const adSlot = elements.adSlot;
+  const adSlotStatus = elements.adSlotStatus;
+
+  if (!adSlot || !adSlotStatus) {
+    return;
+  }
+
+  const hasValidConfig =
+    ADSENSE_CONFIG.enabled &&
+    /^ca-pub-\d{10,}$/.test(String(ADSENSE_CONFIG.client || '').trim()) &&
+    /^\d{6,}$/.test(String(ADSENSE_CONFIG.slot || '').trim());
+
+  if (!hasValidConfig) {
+    adSlot.classList.add('ad-slot--placeholder');
+    adSlotStatus.textContent = 'Ad slot is currently inactive. Add valid AdSense client and slot values in app.js to enable it.';
+    return;
+  }
+
+  const adClient = ADSENSE_CONFIG.client.trim();
+  const adSlotId = ADSENSE_CONFIG.slot.trim();
+
+  adSlot.innerHTML = '';
+  const adIns = document.createElement('ins');
+  adIns.className = 'adsbygoogle';
+  adIns.style.display = 'block';
+  adIns.setAttribute('data-ad-client', adClient);
+  adIns.setAttribute('data-ad-slot', adSlotId);
+  adIns.setAttribute('data-ad-format', 'auto');
+  adIns.setAttribute('data-full-width-responsive', 'true');
+
+  if (ADSENSE_CONFIG.testMode) {
+    adIns.setAttribute('data-adtest', 'on');
+  }
+
+  adSlot.appendChild(adIns);
+  adSlot.classList.remove('ad-slot--placeholder');
+  adSlotStatus.textContent = 'Sponsored content may appear in this slot.';
+
+  const scriptSelector = `script[data-adsense-client="${adClient}"]`;
+  const existingScript = document.querySelector(scriptSelector);
+
+  const renderAd = () => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      adSlotStatus.textContent = 'Ad script loaded but ad rendering was blocked by browser settings.';
+    }
+  };
+
+  if (existingScript) {
+    renderAd();
+    return;
+  }
+
+  const adScript = document.createElement('script');
+  adScript.async = true;
+  adScript.crossOrigin = 'anonymous';
+  adScript.dataset.adsenseClient = adClient;
+  adScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`;
+  adScript.addEventListener('load', renderAd, { once: true });
+  adScript.addEventListener(
+    'error',
+    () => {
+      adSlotStatus.textContent = 'Ad script failed to load. Check network, CSP, and AdSense account status.';
+    },
+    { once: true }
+  );
+
+  document.head.appendChild(adScript);
 }
 
 function stampContactStartTime() {
@@ -1708,6 +1791,19 @@ function startMatrixEffect() {
   matrixFrameTick = 0;
 
   const drawFrame = () => {
+    const now = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+    const minDelta = 1000 / MATRIX_MAX_FPS;
+    if (now - lastMatrixFrameTime < minDelta) {
+      matrixAnimationFrameId = window.requestAnimationFrame(drawFrame);
+      return;
+    }
+    lastMatrixFrameTime = now;
+
+    // If the document is not visible, don't draw (save CPU)
+    if (typeof document !== 'undefined' && document.hidden) {
+      matrixAnimationFrameId = window.requestAnimationFrame(drawFrame);
+      return;
+    }
     const context = canvas.getContext('2d');
     if (!context || !elements.congratsScreen?.classList.contains('is-open')) {
       stopMatrixEffect();
@@ -1777,17 +1873,18 @@ function resizeMatrixCanvas() {
   }
 
   const dpr = window.devicePixelRatio || 1;
+  const effectiveDpr = Math.min(dpr, 1.5);
   const width = Math.max(1, window.innerWidth);
   const height = Math.max(1, window.innerHeight);
 
-  canvas.width = Math.floor(width * dpr);
-  canvas.height = Math.floor(height * dpr);
+  canvas.width = Math.floor(width * effectiveDpr);
+  canvas.height = Math.floor(height * effectiveDpr);
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
 
   const context = canvas.getContext('2d');
   if (context) {
-    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    context.setTransform(effectiveDpr, 0, 0, effectiveDpr, 0, 0);
   }
 
   matrixFontSize = Math.max(14, Math.round(Math.min(width, height) / 55));
@@ -2559,3 +2656,16 @@ function loadAutoCheckpointState() {
 function saveAutoCheckpointState() {
   window.localStorage.setItem(AUTO_CHECKPOINT_KEY, JSON.stringify(autoCheckpointState));
 }
+
+// Stop matrix when page hidden and restart when visible (if congrats is open)
+document.addEventListener('visibilitychange', () => {
+  try {
+    if (document.hidden) {
+      stopMatrixEffect();
+    } else if (elements.congratsScreen?.classList.contains('is-open')) {
+      startMatrixEffect();
+    }
+  } catch (e) {
+    // Ignore errors in visibility handler
+  }
+});

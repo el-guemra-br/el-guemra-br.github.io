@@ -221,7 +221,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
       if (line.startsWith("•")) {
         return (
           <li key={i} className="flex items-start gap-2 text-slate-600 text-sm leading-relaxed">
-            <span className="text-violet-500 mt-0.5 flex-shrink-0">•</span>
+            <span className="text-violet-500 mt-0.5 shrink-0">•</span>
             <span>{line.replace(/^•\s*/, "")}</span>
           </li>
         );
@@ -230,7 +230,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
       if (/^\d+\./.test(line)) {
         return (
           <li key={i} className="flex items-start gap-2 text-slate-600 text-sm leading-relaxed">
-            <span className="text-violet-600 font-bold flex-shrink-0 min-w-[1.25rem]">{line.match(/^\d+/)?.[0]}.</span>
+            <span className="text-lavender-grey font-bold shrink-0 min-w-[1.25rem]">{line.match(/^\d+/)?.[0]}.</span>
             <span>{line.replace(/^\d+\.\s*/, "")}</span>
           </li>
         );
@@ -254,22 +254,22 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
   const hasList = Array.isArray(item.a) && item.a.some((l) => l.startsWith("•") || /^\d+\./.test(l));
 
   return (
-    <div
+      <div
       className={`border rounded-2xl overflow-hidden transition-all duration-200 ${
-        open ? "border-violet-200 shadow-md shadow-violet-100/50" : "border-slate-100"
+        open ? "border-lavender shadow-md shadow-lavender/20" : "border-lavender/40"
       }`}
     >
       <button
         onClick={() => setOpen((o) => !o)}
         className={`w-full flex items-start justify-between gap-4 px-6 py-5 text-left transition-colors ${
-          open ? "bg-violet-50/60" : "bg-white hover:bg-slate-50"
+          open ? "bg-lavender-veil/60" : "bg-lavender-veil hover:bg-lavender-veil/90"
         }`}
         aria-expanded={open}
       >
         <span className="font-semibold text-slate-800 text-sm sm:text-base leading-snug">{item.q}</span>
         <span
-          className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 mt-0.5 ${
-            open ? "rotate-180 bg-violet-600 text-white" : "bg-slate-100 text-slate-400"
+          className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 mt-0.5 ${
+            open ? "rotate-180 bg-lavender-grey text-white" : "bg-lavender/20 text-thistle"
           }`}
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -279,7 +279,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
       </button>
 
       {open && (
-        <div className="px-6 pb-6 bg-white border-t border-violet-50">
+        <div className="px-6 pb-6 bg-lavender-veil border-t border-lavender">
           <div className={`pt-4 ${hasList ? "space-y-1" : "space-y-3"}`}>
             {hasList ? (
               <>
@@ -292,17 +292,17 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
                   const flushList = (key: string) => {
                     if (listBuffer.length > 0) {
                       elements.push(
-                        <ul key={key} className="space-y-1.5 mt-1">
+                          <ul key={key} className="space-y-1.5 mt-1">
                           {listBuffer.map((l, li) => (
-                            <li key={li} className="flex items-start gap-2 text-slate-600 text-sm leading-relaxed">
+                            <li key={li} className="flex items-start gap-2 text-thistle text-sm leading-relaxed">
                               {/^\d+\./.test(l) ? (
                                 <>
-                                  <span className="text-violet-600 font-bold flex-shrink-0 min-w-[1.4rem]">{l.match(/^\d+/)?.[0]}.</span>
+                                  <span className="text-lavender-grey font-bold shrink-0 min-w-[1.4rem]">{l.match(/^\d+/)?.[0]}.</span>
                                   <span>{l.replace(/^\d+\.\s*/, "")}</span>
                                 </>
                               ) : (
                                 <>
-                                  <span className="text-violet-500 flex-shrink-0 mt-0.5">▸</span>
+                                  <span className="text-lavender shrink-0 mt-0.5">▸</span>
                                   <span>{l.replace(/^•\s*/, "")}</span>
                                 </>
                               )}
@@ -367,11 +367,11 @@ export default function FAQ() {
     activeCategory === "All" ? faqs : faqs.filter((f) => f.category === activeCategory);
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-br from-slate-50 to-violet-50/30">
+    <section id="faq" className="py-20 bg-linear-to-br from-slate-50 to-violet-50/30">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block px-3 py-1 rounded-full bg-violet-100 text-violet-600 text-xs font-bold uppercase tracking-widest mb-4">
+          <span className="inline-block px-3 py-1 rounded-full bg-lavender-veil text-lavender-grey text-xs font-bold uppercase tracking-widest mb-4">
             FAQ
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
@@ -390,8 +390,8 @@ export default function FAQ() {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 ${
                 activeCategory === cat
-                  ? "bg-violet-600 text-white border-violet-600 shadow"
-                  : "bg-white text-slate-500 border-slate-200 hover:border-violet-300 hover:text-violet-600"
+                  ? "bg-lavender-grey text-white border-lavender-grey shadow"
+                  : "bg-lavender-veil text-thistle border-lavender hover:border-lavender-grey hover:text-lavender-grey"
               }`}
             >
               {cat}
@@ -412,7 +412,7 @@ export default function FAQ() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 text-center rounded-2xl bg-white border border-violet-100 p-8 shadow-sm">
+        <div className="mt-12 text-center rounded-2xl bg-lavender-veil border border-lavender p-8 shadow-sm">
           <div className="text-2xl mb-3">💬</div>
           <h3 className="font-bold text-slate-800 mb-2">Still have a question?</h3>
           <p className="text-slate-500 text-sm mb-4">
@@ -420,7 +420,7 @@ export default function FAQ() {
           </p>
           <a
             href="#converter"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lavender-grey hover:bg-lavender text-white text-sm font-semibold shadow transition-colors"
           >
             Try the Converter
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

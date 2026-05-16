@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --lavender-grey: #8e9aaf;
+    --thistle: #c7aadb;
+    --soft-blush: #e0aab2;
+    --lavender-veil: #ffccf5;
+    --lavender: #bdc3f3;
+  }
+  
+  body {
+    background-color: var(--lavender-veil);
+    color: #111827;
+  }
+  
+  a {
+    color: var(--lavender-grey);
+  }
+}

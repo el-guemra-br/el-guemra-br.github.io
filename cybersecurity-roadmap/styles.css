@@ -520,6 +520,57 @@ body::after {
   height: 8px;
 }
 
+.monetization-panel {
+  margin-top: 14px;
+  padding: 18px;
+  border-radius: var(--radius-xl);
+}
+
+.monetization-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.monetization-head p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.ad-slot {
+  margin-top: 12px;
+  min-height: 120px;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(61, 252, 173, 0.34);
+  background: rgba(7, 25, 16, 0.82);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.ad-slot ins {
+  display: block;
+  width: 100%;
+}
+
+.ad-placeholder {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  max-width: 70ch;
+  line-height: 1.6;
+  font-size: 0.93rem;
+}
+
+.ad-slot-status {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
 .quick-nav::-webkit-scrollbar-track {
   background: rgba(8, 24, 16, 0.8);
   border-radius: 999px;
@@ -1561,6 +1612,15 @@ body.congrats-open {
 
   .congrats-screen__panel {
     padding: 22px 18px;
+  }
+
+  .monetization-panel {
+    padding: 16px;
+  }
+
+  .ad-slot {
+    min-height: 96px;
+    padding: 12px;
   }
 }
 

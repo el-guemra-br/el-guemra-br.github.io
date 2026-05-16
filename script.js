@@ -153,29 +153,74 @@ function initScrollAnimations() {
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".ul-list li");
 
+// Throttle DOM work with requestAnimationFrame and debounce saving scroll position
+let _ticking = false;
+let _saveScrollTimer = null;
+
+// Use IntersectionObserver for nav highlighting (cheaper than per-scroll reads)
+function initNavObserver() {
+    if (!sections || sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (!entry.target || !entry.isIntersecting) return;
+                const id = entry.target.id;
+
+                navItems.forEach(item => item.classList.remove("active"));
+                const match = Array.from(navItems).find(item => {
+                    const link = item.querySelector("a");
+                    return link && link.getAttribute("href") === `#${id}`;
+                });
+                if (match) match.classList.add("active");
+            });
+        },
+        { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+    );
+
+    sections.forEach(s => observer.observe(s));
+}
+
+// Keep a minimal scroll listener just to debounce saving scroll position (no layout reads)
 window.addEventListener("scroll", () => {
-    saveScrollPosition();
+    if (_saveScrollTimer) clearTimeout(_saveScrollTimer);
+    _saveScrollTimer = setTimeout(() => saveScrollPosition(), 250);
+}, { passive: true });
 
-    let current = "";
+// Pause animations while the user is actively scrolling to reduce jank
+let _reduceMotionTimer = null;
+window.addEventListener('scroll', () => {
+    document.body.classList.add('reduce-motion');
+    if (_reduceMotionTimer) clearTimeout(_reduceMotionTimer);
+    _reduceMotionTimer = setTimeout(() => {
+        document.body.classList.remove('reduce-motion');
+        _reduceMotionTimer = null;
+    }, 300);
+}, { passive: true });
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 200;
-        const sectionHeight = section.clientHeight;
+// Ensure non-critical images are lazy-loaded to reduce initial paint cost
+function enableLazyLoadingForImages() {
+    try {
+        const imgs = Array.from(document.querySelectorAll('img'));
+        imgs.forEach((img) => {
+            // Respect explicitly eager images
+            const loadingAttr = img.getAttribute('loading');
+            if (!loadingAttr || loadingAttr !== 'eager') {
+                img.setAttribute('loading', 'lazy');
+            }
+            if (!img.getAttribute('decoding')) {
+                img.setAttribute('decoding', 'async');
+            }
+        });
+    } catch (e) {
+        // safe no-op
+    }
+}
 
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            current = section.getAttribute("id");
-        }
-    });
+document.addEventListener('DOMContentLoaded', enableLazyLoadingForImages, { once: true });
 
-    navItems.forEach(item => {
-        item.classList.remove("active");
-
-        const link = item.querySelector("a");
-        if (link && link.getAttribute("href") === `#${current}`) {
-            item.classList.add("active");
-        }
-    });
-});
+// Initialize nav observer on next frame (DOM should be ready)
+requestAnimationFrame(initNavObserver);
 
 window.addEventListener("pagehide", saveScrollPosition);
 window.addEventListener("beforeunload", saveScrollPosition);
@@ -847,7 +892,7 @@ function renderGitHubOrganizations(target, orgs) {
         item.target = "_blank";
         item.rel = "noreferrer noopener";
         item.innerHTML = `
-            <img src="${org.avatar_url}" alt="${org.login} logo">
+            <img src="${org.avatar_url}" alt="${org.login} logo" loading="lazy" decoding="async">
             <span>${org.login}</span>
         `;
         target.appendChild(item);

@@ -4,12 +4,14 @@
    GLOBAL BASE STYLES
    ============================================= */
 :root {
-  --red-glow: #dc2626;
-  --red-dim: #991b1b;
-  --gold: #d4af37;
-  --dark-bg: #050507;
-  --dark-card: #0d0d12;
-  --dark-surface: #111118;
+  --coffee-bean: rgb(95, 54, 30);
+  --rich-mahogany: rgb(110, 45, 30);
+  --burgundy: #b13a45ff;
+  --cherry-rose: #c24a63ff;
+  --lavender-blush: #fff0f7ff;
+  --dark-bg: #2e1409;
+  --dark-card: #5a2a1a;
+  --dark-surface: #43281d;
 }
 
 * {
@@ -42,32 +44,32 @@ body {
    GLOW EFFECTS
    ============================================= */
 .glow-red {
-  box-shadow: 0 0 20px rgba(220, 38, 38, 0.5), 0 0 40px rgba(220, 38, 38, 0.2);
+  box-shadow: 0 0 20px rgba(194, 74, 99, 0.45), 0 0 40px rgba(194, 74, 99, 0.18);
 }
 
 .glow-red-text {
-  text-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 0 0 40px rgba(220, 38, 38, 0.4);
+  text-shadow: 0 0 20px rgba(194, 74, 99, 0.78), 0 0 40px rgba(194, 74, 99, 0.36);
 }
 
 .glow-gold-text {
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 0 20px rgba(255, 240, 247, 0.8), 0 0 40px rgba(255, 240, 247, 0.4);
 }
 
 /* =============================================
    GLASSMORPHISM
    ============================================= */
 .glass {
-  background: rgba(13, 13, 18, 0.7);
+  background: rgba(61, 19, 8, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(194, 74, 99, 0.12);
 }
 
 .glass-light {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 240, 247, 0.07);
 }
 
 /* =============================================
@@ -75,19 +77,19 @@ body {
    ============================================= */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(220, 38, 38, 0.4), 0 0 30px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 0 15px rgba(194, 74, 99, 0.36), 0 0 30px rgba(194, 74, 99, 0.18);
   }
   50% {
-    box-shadow: 0 0 30px rgba(220, 38, 38, 0.8), 0 0 60px rgba(220, 38, 38, 0.4), 0 0 90px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 0 30px rgba(194, 74, 99, 0.72), 0 0 60px rgba(194, 74, 99, 0.36), 0 0 90px rgba(194, 74, 99, 0.16);
   }
 }
 
 @keyframes pulse-glow-outline {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(220, 38, 38, 0.2), inset 0 0 10px rgba(220, 38, 38, 0.05);
+    box-shadow: 0 0 10px rgba(194, 74, 99, 0.18), inset 0 0 10px rgba(194, 74, 99, 0.04);
   }
   50% {
-    box-shadow: 0 0 25px rgba(220, 38, 38, 0.5), inset 0 0 20px rgba(220, 38, 38, 0.1);
+    box-shadow: 0 0 25px rgba(194, 74, 99, 0.46), inset 0 0 20px rgba(194, 74, 99, 0.08);
   }
 }
 
@@ -120,7 +122,7 @@ body {
   position: absolute;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(194,74,99,0.28), transparent);
   animation: scanline 6s linear infinite;
   pointer-events: none;
 }
@@ -136,7 +138,7 @@ body {
 
 .collection-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4), 0 0 40px rgba(220, 38, 38, 0.2);
+  box-shadow: 0 20px 60px rgba(194, 74, 99, 0.36), 0 0 40px rgba(194, 74, 99, 0.18);
 }
 
 .collection-card::before {
@@ -145,9 +147,9 @@ body {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(220, 38, 38, 0.1) 0%,
+    rgba(194, 74, 99, 0.08) 0%,
     transparent 50%,
-    rgba(220, 38, 38, 0.05) 100%
+    rgba(194, 74, 99, 0.04) 100%
   );
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -194,16 +196,16 @@ body {
    CAROUSEL / SWIPER
    ============================================= */
 .swiper-pagination-bullet {
-  background: rgba(220, 38, 38, 0.5) !important;
+  background: rgba(194, 74, 99, 0.44) !important;
 }
 
 .swiper-pagination-bullet-active {
-  background: #dc2626 !important;
+  background: #c24a63 !important;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: #dc2626 !important;
+  color: #c24a63 !important;
 }
 
 /* =============================================
@@ -259,7 +261,7 @@ body {
    ============================================= */
 .red-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #dc2626, transparent);
+  background: linear-gradient(90deg, transparent, #c24a63, transparent);
 }
 
 .section-title::after {
@@ -267,9 +269,9 @@ body {
   display: block;
   width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, #dc2626, #991b1b);
+  background: linear-gradient(90deg, #c24a63, #b13a45);
   margin: 12px auto 0;
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+  box-shadow: 0 0 10px rgba(194, 74, 99, 0.42);
 }
 
 /* =============================================
@@ -287,7 +289,7 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #dc2626;
+  background: #c24a63;
   transition: width 0.3s ease;
 }
 
@@ -308,12 +310,12 @@ body {
    SCREENSHOT GALLERY
    ============================================= */
 .screenshot-img {
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(194, 74, 99, 0.18);
   transition: border-color 0.3s, transform 0.3s;
 }
 
 .screenshot-img:hover {
-  border-color: rgba(220, 38, 38, 0.6);
+  border-color: rgba(194, 74, 99, 0.46);
   transform: scale(1.03);
 }
 
@@ -336,28 +338,28 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050507;
+  background: #2e1409;
 }
 ::-webkit-scrollbar-thumb {
-  background: #dc2626;
+  background: #c24a63;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #991b1b;
+  background: #b13a45;
 }
 
 /* =============================================
    SELECTION
    ============================================= */
 ::selection {
-  background: rgba(220, 38, 38, 0.3);
+  background: rgba(194, 74, 99, 0.28);
   color: #fff;
 }
 
 /* Red line border animation */
 @keyframes border-glow {
-  0%, 100% { border-color: rgba(220, 38, 38, 0.3); }
-  50% { border-color: rgba(220, 38, 38, 0.8); }
+  0%, 100% { border-color: rgba(194, 74, 99, 0.26); }
+  50% { border-color: rgba(194, 74, 99, 0.68); }
 }
 
 .border-animate {
